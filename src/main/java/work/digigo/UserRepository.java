@@ -5,7 +5,7 @@ import java.sql.*;
 public class UserRepository {
     public void save(User user) throws ClassNotFoundException {
 
-        try (Connection connection = DbConnection.getConnection()){
+        try (Connection connection = DbConnection.getInstance().getConnection()){
 
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
 
@@ -20,10 +20,14 @@ public class UserRepository {
         }
     }
 
-    public void delete(int id) throws ClassNotFoundException {
+    public void delete(int id) {
 
-        try (Connection connection = DbConnection.getConnection()){
-
+        System.out.println("Delete");
+        try (Connection connection = DbConnection.getInstance().getConnection()){
+            String query = "DELETE FROM users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
         }
         catch (SQLException e){
             System.out.println(e.getMessage());

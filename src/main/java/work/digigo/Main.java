@@ -28,5 +28,7 @@ public class Main {
 
         userRepository.save(user);
 
+        userRepository.delete(3);
+
     }
 }
