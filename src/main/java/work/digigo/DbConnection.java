@@ -8,21 +8,6 @@ public class DbConnection {
     private static DbConnection instance;
     private Connection connection;
 
-    // Constructor for initialize connection
-    private DbConnection() {
-        try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/crud_operations";
-            String username = "postgres";
-            String password = "1234";
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Connection to PostgreSQL database established.");
-        }
-        catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     // Create instance of Db connection
     public static DbConnection getInstance() {
         if (instance == null) {
@@ -31,6 +16,20 @@ public class DbConnection {
         return instance;
     }
 
+    // Constructor for initialize connection
+    private DbConnection() {
+        try {
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://localhost:5432/crud_operations";
+            String username = "postgres";
+            String password = "1234";
+            this.connection = DriverManager.getConnection(url, username, password);
+            System.out.println("Connection to PostgreSQL database established.");
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
     // Get connection

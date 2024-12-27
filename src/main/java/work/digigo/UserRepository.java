@@ -3,10 +3,10 @@ package work.digigo;
 import java.sql.*;
 
 public class UserRepository {
-    public void save(User user) throws ClassNotFoundException {
+    public void save(User user) {
 
-        try (Connection connection = DbConnection.getInstance().getConnection()){
-
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -22,8 +22,8 @@ public class UserRepository {
 
     public void delete(int id) {
 
-        System.out.println("Delete");
-        try (Connection connection = DbConnection.getInstance().getConnection()){
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
             String query = "DELETE FROM users WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
@@ -33,6 +33,4 @@ public class UserRepository {
             System.out.println(e.getMessage());
         }
     }
-
-
 }
